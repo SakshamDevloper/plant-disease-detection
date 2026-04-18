@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantDoctor AI Pro | Advanced Plant Disease Detection</title>
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Leaflet for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Three.js for 3D visualizations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-mode.css') }}">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particle-background"></div>
+    
+    <!-- AI Assistant Avatar -->
+    <div class="ai-assistant">
+        <div class="assistant-avatar" id="assistantAvatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="assistant-chat" id="assistantChat" style="display: none;">
+            <div class="chat-header">
+                <span>PlantDoctor AI Assistant</span>
+                <button class="close-chat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    Hello! I'm your AI plant health assistant. How can I help you today?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Ask me anything about plant diseases...">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation -->
+    <nav class="navbar glass-morphism">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <span class="brand-text">PlantDoctor <span class="pro-badge">PRO</span></span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-chart-pie"></i> Dashboard
+                </a>
+                <a href="#analyze" class="nav-link" data-section="analyze">
+                    <i class="fas fa-microscope"></i> Analyze
+                </a>
+                <a href="#history" class="nav-link" data-section="history">
+                    <i class="fas fa-history"></i> History
+                </a>
+                <a href="#map" class="nav-link" data-section="map">
+                    <i class="fas fa-map-marked-alt"></i> Disease Map
+                </a>
+                <a href="#learn" class="nav-link" data-section="learn">
+                    <i class="fas fa-graduation-cap"></i> Learn
+                </a>
+                <a href="#community" class="nav-link" data-section="community">
+                    <i class="fas fa-users"></i> Community
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <!-- User Profile Dropdown -->
+                                <!-- User Profile Dropdown -->
+                <div class="user-profile-wrapper">
+                    <div class="user-profile" id="userProfileBtn">
+                        <img src="https://ui-avatars.com/api/?name=Plant+Doctor&background=2ecc71&color=fff" alt="User" id="userAvatar">
+                        <span id="userNameDisplay">Gardener</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown" style="display: none;">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h1>Welcome back, <span id="userName">Gardener</span>! 👋</h1>
+                    <p class="greeting-message" id="greetingMessage"></p>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card gradient-1">
+                        <div class="stat-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Plants Analyzed</h3>
+                            <p class="stat-value" id="totalAnalyses">120</p>
+                            <span class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> 12% vs last month
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-2">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Healthy Plants</h3>
+                            <p class="stat-value" id="healthyPlants">78</p>
+                            <span class="stat-trend">65% of total</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-3">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Diseases Detected</h3>
+                            <p class="stat-value" id="diseasesDetected">42</p>
+                            <span class="stat-trend warning">
+                                <i class="fas fa-arrow-up"></i> 3 new this week
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-4">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Avg Response Time</h3>
+                            <p class="stat-value">2.4s</p>
+                            <span class="stat-trend positive">
+                                <i class="fas fa-bolt"></i> Lightning Fast
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Disease Distribution</h3>
+                            <div class="chart-actions">
+                                <button class="chart-period active">Week</button>
+                                <button class="chart-period">Month</button>
+                                <button class="chart-period">Year</button>
+                            </div>
+                        </div>
+                        <canvas id="diseaseChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Analysis Accuracy Trend</h3>
+                            <i class="fas fa-info-circle" title="Based on user feedback"></i>
+                        </div>
+                        <canvas id="accuracyChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity & Recommendations -->
+                <div class="info-row">
+                    <div class="activity-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-clock"></i> Recent Analyses</h3>
+                            <a href="#history" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="activity-list" id="recentActivity">
+                        </div>
+                    </div>
+                    
+                    <div class="recommendations-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-lightbulb"></i> Smart Recommendations</h3>
+                        </div>
+                        <div class="recommendations-list" id="recommendations">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Weather Alert -->
+                <div class="weather-alert-card">
+                    <div class="weather-header">
+                        <div class="weather-title">
+                            <i class="fas fa-cloud-sun"></i>
+                            <h3>Weather-Based Disease Alert</h3>
+                        </div>
+                        <div class="weather-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="weatherLocation">Detecting location...</span>
+                        </div>
+                    </div>
+                    <div class="weather-content" id="weatherAlert">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Analyze Section -->
+        <section id="analyze" class="section">
+            <div class="container">
+                <div class="analyze-header">
+                    <h2><i class="fas fa-microscope"></i> Plant Disease Analysis</h2>
+                    <p>Upload clear photos of affected leaves for best results</p>
+                </div>
+                
+                <div class="analyze-container">
+                    <div class="upload-advanced">
+                        <div class="upload-methods">
+                            <button class="method-btn active" data-method="upload">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload
+                            </button>
+                            <button class="method-btn" data-method="camera">
+                                <i class="fas fa-camera"></i> Camera
+                            </button>
+                            <button class="method-btn" data-method="url">
+                                <i class="fas fa-link"></i> URL
+                            </button>
+                        </div>
+                        
+                        <div class="upload-area-enhanced" id="uploadAreaEnhanced">
+                            <div class="upload-zone">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <h3>Drag & Drop or Click to Upload</h3>
+                                <p>Supported formats: JPG, PNG, WEBP, HEIC (Max 32MB)</p>
+                                <button class="btn-primary" id="selectFileBtn">
+                                    <i class="fas fa-folder-open"></i> Select Files
+                                </button>
+                            </div>
+                            
+                            <div class="upload-preview" id="uploadPreview" style="display: none;">
+                                <div class="preview-header">
+                                    <h4>Selected Images</h4>
+                                    <button class="clear-all">Clear All</button>
+                                </div>
+                                <div class="preview-grid" id="previewGrid">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="analysis-options">
+                            <h4>Analysis Options</h4>
+                            <div class="options-grid">
+                                <label class="option-checkbox">
+                                    <input type="checkbox" checked> Auto-enhance image
+                                    <i class="fas fa-magic"></i>
+                                </label>
+                                <label class="option-checkbox">
+                                    <input type="checkbox" checked> Assess severity
+                                    <i class="fas fa-chart-bar"></i>
+                                </label>
+                                <label class="option-checkbox">
+                                    <input type="checkbox"> Compare with healthy plant
+                                    <i class="fas fa-balance-scale"></i>
+                                </label>
+                                <label class="option-checkbox">
+                                    <input type="checkbox"> Save to history
+                                    <i class="fas fa-save"></i>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="location-selection">
+                            <label><i class="fas fa-map-pin"></i> Plant Location (for weather-based insights)</label>
+                            <div class="location-input">
+                                <input type="text" id="locationInput" placeholder="Enter location or use current">
+                                <button class="btn-secondary" id="useLocationBtn">
+                                    <i class="fas fa-location-arrow"></i> Use Current
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-analyze-large" id="startAnalysisBtn">
+                            <i class="fas fa-flask"></i> Start Advanced Analysis
+                        </button>
+                    </div>
+                    
+                    <div class="analysis-progress" id="analysisProgress" style="display: none;">
+                        <div class="progress-header">
+                            <h3>Analyzing Your Plant...</h3>
+                            <p id="progressStatus">Preprocessing image</p>
+                        </div>
+                        <div class="progress-steps">
+                            <div class="step active" data-step="1">
+                                <div class="step-icon"><i class="fas fa-image"></i></div>
+                                <span>Preprocessing</span>
+                            </div>
+                            <div class="step" data-step="2">
+                                <div class="step-icon"><i class="fas fa-brain"></i></div>
+                                <span>AI Analysis</span>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+                                <span>Severity Check</span>
+                            </div>
+                            <div class="step" data-step="4">
+                                <div class="step-icon"><i class="fas fa-clipboard-check"></i></div>
+                                <span>Recommendations</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="analysisProgressBar" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-percentage" id="progressPercentage">0%</div>
+                    </div>
+                    
+                    <div class="results-enhanced" id="resultsEnhanced" style="display: none;">
+                        <div class="image-comparison">
+                            <div class="comparison-header">
+                                <h3>Image Analysis</h3>
+                                <div class="view-toggle">
+                                    <button class="view-btn active" data-view="original">Original</button>
+                                    <button class="view-btn" data-view="enhanced">Enhanced</button>
+                                    <button class="view-btn" data-view="annotated">Annotated</button>
+                                </div>
+                            </div>
+                            <div class="image-container">
+                                <img id="resultImage" src="" alt="Plant Analysis">
+                                <div class="image-overlay" id="imageOverlay"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="diagnosis-card-enhanced">
+                            <div class="diagnosis-header">
+                                <div class="disease-tag" id="diseaseTag">
+                                    <span class="severity-badge" id="severityBadge">Critical</span>
+                                    <h2 id="diseaseTitle">Late Blight Detected</h2>
+                                </div>
+                                <div class="confidence-gauge">
+                                    <div class="gauge-container">
+                                        <canvas id="confidenceGauge"></canvas>
+                                        <div class="gauge-value" id="confidenceValue">95%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ai-summary">
+                                <i class="fas fa-robot"></i>
+                                <p id="aiSummary">AI Analysis: High confidence detection of late blight. Immediate action recommended.</p>
+                            </div>
+                            
+                            <div class="quick-actions">
+                                <button class="action-btn" onclick="downloadReport()">
+                                    <i class="fas fa-download"></i> Report
+                                </button>
+                                <button class="action-btn" onclick="shareResults()">
+                                    <i class="fas fa-share-alt"></i> Share
+                                </button>
+                                <button class="action-btn" onclick="saveToHistory()">
+                                    <i class="fas fa-bookmark"></i> Save
+                                </button>
+                                <button class="action-btn" onclick="getExpertConsultation()">
+                                    <i class="fas fa-user-md"></i> Expert
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="info-tabs-enhanced">
+                            <div class="tabs-header">
+                                <button class="tab-btn-enhanced active" data-tab="overview">
+                                    <i class="fas fa-info-circle"></i> Overview
+                                </button>
+                                <button class="tab-btn-enhanced" data-tab="treatment">
+                                    <i class="fas fa-first-aid"></i> Treatment Plan
+                                </button>
+                                <button class="tab-btn-enhanced" data-tab="timeline">
+                                    <i class="fas fa-calendar-alt"></i> Timeline
+                                </button>
+                                <button class="tab-btn-enhanced" data-tab="analytics">
+                                    <i class="fas fa-chart-bar"></i> Analytics
+                                </button>
+                                <button class="tab-btn-enhanced" data-tab="similar">
+                                    <i class="fas fa-search"></i> Similar Cases
+                                </button>
+                            </div>
+                            
+                            <div class="tab-content-enhanced active" id="overviewTab">
+                                <div class="overview-grid">
+                                    <div class="info-block">
+                                        <h4>Scientific Classification</h4>
+                                        <p id="scientificName">Phytophthora infestans</p>
+                                    </div>
+                                    <div class="info-block">
+                                        <h4>Host Range</h4>
+                                        <p id="hostRange">Tomatoes, Potatoes, Eggplants</p>
+                                    </div>
+                                    <div class="info-block">
+                                        <h4>Favorable Conditions</h4>
+                                        <p id="favorableConditions">Cool, wet conditions (60-70°F)</p>
+                                    </div>
+                                    <div class="info-block">
+                                        <h4>Economic Impact</h4>
+                                        <p id="economicImpact">Can cause 70-100% crop loss</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="description-block">
+                                    <h4>Description</h4>
+                                    <p id="diseaseDescription"></p>
+                                </div>
+                                
+                                <div class="symptoms-block">
+                                    <h4>Common Symptoms</h4>
+                                    <ul id="symptomsList"></ul>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content-enhanced" id="treatmentTab">
+                                <div class="treatment-plan">
+                                    <div class="treatment-section">
+                                        <h4><i class="fas fa-leaf"></i> Organic Treatments</h4>
+                                        <ul id="organicTreatments"></ul>
+                                    </div>
+                                    <div class="treatment-section">
+                                        <h4><i class="fas fa-flask"></i> Chemical Control</h4>
+                                        <ul id="chemicalTreatments"></ul>
+                                    </div>
+                                    <div class="treatment-section">
+                                        <h4><i class="fas fa-bug"></i> Biological Control</h4>
+                                        <ul id="biologicalControl"></ul>
+                                    </div>
+                                    <div class="treatment-section">
+                                        <h4><i class="fas fa-tractor"></i> Cultural Practices</h4>
+                                        <ul id="culturalPractices"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content-enhanced" id="timelineTab">
+                                <div class="timeline-container">
+                                    <div class="timeline" id="treatmentTimeline">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content-enhanced" id="analyticsTab">
+                                <div class="analytics-container">
+                                    <div class="chart-wrapper">
+                                        <canvas id="severityChart"></canvas>
+                                    </div>
+                                    <div class="stats-wrapper">
+                                        <div class="stat-item">
+                                            <label>Leaf Area Affected</label>
+                                            <div class="progress">
+                                                <div class="progress-bar" id="leafAreaProgress"></div>
+                                            </div>
+                                            <span id="leafAreaValue">35%</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <label>Spot Density</label>
+                                            <div class="progress">
+                                                <div class="progress-bar" id="spotDensityProgress"></div>
+                                            </div>
+                                            <span id="spotDensityValue">28%</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <label>Recovery Probability</label>
+                                            <div class="progress">
+                                                <div class="progress-bar success" id="recoveryProgress"></div>
+                                            </div>
+                                            <span id="recoveryValue">75%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content-enhanced" id="similarTab">
+                                <div class="similar-cases">
+                                    <div class="cases-grid" id="similarCases">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="weather-recommendations">
+                            <div class="weather-header-small">
+                                <i class="fas fa-cloud-sun-rain"></i>
+                                <h4>Weather-Based Insights</h4>
+                            </div>
+                            <div class="weather-insights" id="weatherInsights">
+                            </div>
+                        </div>
+                        
+                        <div class="feedback-section">
+                            <h4>Was this diagnosis helpful?</h4>
+                            <div class="feedback-buttons">
+                                <button class="feedback-btn" data-feedback="accurate">
+                                    <i class="fas fa-check-circle"></i> Accurate
+                                </button>
+                                <button class="feedback-btn" data-feedback="inaccurate">
+                                    <i class="fas fa-times-circle"></i> Inaccurate
+                                </button>
+                                <button class="feedback-btn" data-feedback="helpful">
+                                    <i class="fas fa-thumbs-up"></i> Helpful
+                                </button>
+                            </div>
+                            <div class="feedback-form" id="feedbackForm" style="display: none;">
+                                <textarea placeholder="Please provide more details..."></textarea>
+                                <button class="btn-primary">Submit Feedback</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- History Section -->
+        <section id="history" class="section">
+            <div class="container">
+                <div class="history-header">
+                    <h2><i class="fas fa-history"></i> Analysis History</h2>
+                    <div class="history-filters">
+                        <input type="text" placeholder="Search analyses..." id="historySearch">
+                        <select id="plantFilter">
+                            <option value="">All Plants</option>
+                            <option value="tomato">Tomato</option>
+                            <option value="potato">Potato</option>
+                            <option value="pepper">Pepper</option>
+                        </select>
+                        <select id="dateFilter">
+                            <option value="all">All Time</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="history-grid" id="historyGrid">
+                </div>
+                
+                <div class="history-pagination">
+                    <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                    <span class="page-info">Page 1 of 5</span>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Disease Map Section -->
+        <section id="map" class="section">
+            <div class="container">
+                <div class="map-header">
+                    <h2><i class="fas fa-map-marked-alt"></i> Disease Outbreak Map</h2>
+                    <p>Community-reported disease occurrences in your area</p>
+                </div>
+                
+                <div class="map-container">
+                    <div id="diseaseMap" style="height: 500px;"></div>
+                    
+                    <div class="map-controls">
+                        <div class="map-legend">
+                            <h4>Legend</h4>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #e74c3c;"></span>
+                                <span>Critical</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #f39c12;"></span>
+                                <span>Severe</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #f1c40f;"></span>
+                                <span>Moderate</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #2ecc71;"></span>
+                                <span>Mild</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary" id="reportOutbreakBtn">
+                            <i class="fas fa-flag"></i> Report Outbreak
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="outbreak-stats">
+                    <div class="stat-box">
+                        <h4>Active Outbreaks</h4>
+                        <p class="stat-number">12</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>At-Risk Areas</h4>
+                        <p class="stat-number">8</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Most Reported</h4>
+                        <p class="stat-text">Late Blight</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Learn Section -->
+        <section id="learn" class="section">
+            <div class="container">
+                <h2><i class="fas fa-graduation-cap"></i> Learning Center</h2>
+                
+                <div class="learn-grid">
+                    <div class="learn-card featured">
+                        <div class="card-image">
+                            <img src="/static/images/disease-prevention.jpg" alt="Disease Prevention">
+                            <span class="card-badge">Featured</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Complete Guide to Disease Prevention</h3>
+                            <p>Learn essential strategies to protect your plants year-round</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="learn-card">
+                        <div class="card-image">
+                            <img src="/static/images/organic-control.jpg" alt="Organic Control">
+                        </div>
+                        <div class="card-content">
+                            <h3>Organic Disease Control Methods</h3>
+                            <p>Natural solutions for common plant diseases</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="learn-card">
+                        <div class="card-image">
+                            <img src="/static/images/early-detection.jpg" alt="Early Detection">
+                        </div>
+                        <div class="card-content">
+                            <h3>Early Warning Signs</h3>
+                            <p>How to spot diseases before they spread</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-tutorials">
+                    <h3>Video Tutorials</h3>
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <div class="video-thumbnail">
+                                <img src="/static/images/video-thumb1.jpg" alt="Tutorial">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>How to Identify Tomato Diseases</h4>
+                            <span>12 min</span>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-thumbnail">
+                                <img src="/static/images/video-thumb2.jpg" alt="Tutorial">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Natural Fungicides That Work</h4>
+                            <span>8 min</span>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-thumbnail">
+                                <img src="/static/images/video-thumb3.jpg" alt="Tutorial">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Prevention Strategies for Home Gardens</h4>
+                            <span>15 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Community Section -->
+        <section id="community" class="section">
+            <div class="container">
+                <div class="community-header">
+                    <h2><i class="fas fa-users"></i> Gardener Community</h2>
+                    <button class="btn-primary" id="newPostBtn">
+                        <i class="fas fa-plus"></i> New Post
+                    </button>
+                </div>
+                
+                <div class="community-grid">
+                    <div class="community-sidebar">
+                        <div class="community-stats">
+                            <h4>Community Stats</h4>
+                            <div class="stat-item">
+                                <span>Members</span>
+                                <strong>2,847</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Posts</span>
+                                <strong>1,293</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Online Now</span>
+                                <strong>42</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="top-contributors">
+                            <h4>Top Contributors</h4>
+                            <div class="contributor-list">
+                            </div>
+                        </div>
+                        
+                        <div class="popular-tags">
+                            <h4>Popular Tags</h4>
+                            <div class="tags-cloud">
+                                <a href="#" class="tag">#TomatoDiseases</a>
+                                <a href="#" class="tag">#OrganicFarming</a>
+                                <a href="#" class="tag">#PestControl</a>
+                                <a href="#" class="tag">#UrbanGardening</a>
+                                <a href="#" class="tag">#PlantHealth</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-feed">
+                        <div class="feed-filters">
+                            <button class="filter-btn active">Latest</button>
+                            <button class="filter-btn">Popular</button>
+                            <button class="filter-btn">Unanswered</button>
+                            <button class="filter-btn">My Posts</button>
+                        </div>
+                        
+                        <div class="posts-container" id="communityPosts">
+                        </div>
+                        
+                        <button class="load-more">Load More Posts</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Quick Action FAB -->
+    <div class="fab-container">
+        <button class="fab-main" id="fabMain">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div class="fab-options">
+            <button class="fab-option" data-action="analyze">
+                <i class="fas fa-camera"></i>
+                <span>Quick Scan</span>
+            </button>
+            <button class="fab-option" data-action="report">
+                <i class="fas fa-flag"></i>
+                <span>Report Disease</span>
+            </button>
+            <button class="fab-option" data-action="ask">
+                <i class="fas fa-question"></i>
+                <span>Ask Expert</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel" style="display: none;">
+        <div class="panel-header">
+            <h3>Notifications</h3>
+            <button class="mark-all-read">Mark all read</button>
+        </div>
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="notification-content">
+                    <p>High disease risk alert in your area</p>
+                    <span>2 hours ago</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <i class="fas fa-check-circle"></i>
+                <div class="notification-content">
+                    <p>Your analysis report is ready</p>
+                    <span>5 hours ago</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <i class="fas fa-users"></i>
+                <div class="notification-content">
+                    <p>3 new replies to your community post</p>
+                    <span>Yesterday</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/voice-assistant.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard-fix.js') }}"></script>
+    
+    <!-- User Dropdown and Auth Script -->
+    <script>
+    // User Dropdown Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const userProfileBtn = document.getElementById('userProfileBtn');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        if (userProfileBtn && userDropdown) {
+            userProfileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isVisible = userDropdown.style.display === 'block';
+                userDropdown.style.display = isVisible ? 'none' : 'block';
+                userProfileBtn.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!userProfileBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.style.display = 'none';
+                    userProfileBtn.classList.remove('active');
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    userDropdown.style.display = 'none';
+                    userProfileBtn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Check authentication status
+        fetch('/auth/check')
+            .then(res => res.json())
+            .then(data => {
+                const userNameDisplay = document.getElementById('userNameDisplay');
+                const userName = document.getElementById('userName');
+                const userDropdown = document.getElementById('userDropdown');
+                
+                if (data.authenticated && data.user) {
+                    if (userNameDisplay) {
+                        userNameDisplay.textContent = data.user.full_name || data.user.username || 'Gardener';
+                    }
+                    if (userName) {
+                        userName.textContent = data.user.full_name || data.user.username || 'Gardener';
+                    }
+                    const avatar = document.getElementById('userAvatar');
+                    if (avatar) {
+                        avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(data.user.full_name || data.user.username)}&background=2ecc71&color=fff`;
+                    }
+                } else {
+                    if (userDropdown) {
+                        userDropdown.innerHTML = `
+                            <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                            <a href="/register"><i class="fas fa-user-plus"></i> Register</a>
+                        `;
+                    }
+                }
+            })
+            .catch(err => console.log('Auth check failed:', err));
+    });
+
+    // Logout function
+    async function handleLogout() {
+        try {
+            await fetch('/auth/logout', { method: 'POST' });
+            window.location.href = '/login';
+        } catch (error) {
+            console.error('Logout error:', error);
+            window.location.href = '/login';
+        }
+    }
+
+    // Camera capture feature
+    async function captureFromCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.play();
+        } catch (err) {
+            console.log('Camera not available');
+        }
+    }
+
+    // Placeholder functions for buttons
+    function downloadReport() { alert('Report download feature coming soon!'); }
+    function shareResults() { alert('Share feature coming soon!'); }
+    function saveToHistory() { alert('Saved to history!'); }
+    function getExpertConsultation() { alert('Expert consultation feature coming soon!'); }
+    </script>
+    <script src="{{ url_for('static', filename='js/user-dropdown.js') }}"></script>
+</body>
+</html>

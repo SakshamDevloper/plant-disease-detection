@@ -1,0 +1,908 @@
+/* ========== CLEAN DARK MODE - NO BLACK MESS ========== */
+
+[data-theme="dark"] {
+    /* Clean dark color scheme */
+    --dark-bg: #0f1419;
+    --dark-surface: #1a232c;
+    --dark-surface-2: #212c38;
+    --dark-border: #2a3743;
+    --dark-text: #e8edf2;
+    --dark-text-secondary: #9baab8;
+    --dark-primary: #2ecc71;
+    --dark-primary-hover: #27ae60;
+}
+
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) fixed !important;
+    color: var(--dark-text) !important;
+}
+
+/* Navigation */
+[data-theme="dark"] .navbar {
+    background: rgba(26, 35, 44, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: var(--dark-primary) !important;
+    background: rgba(46, 204, 113, 0.1) !important;
+}
+
+[data-theme="dark"] .nav-link.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Cards */
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .chart-card,
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .recommendations-card,
+[data-theme="dark"] .weather-alert-card,
+[data-theme="dark"] .upload-advanced,
+[data-theme="dark"] .community-sidebar,
+[data-theme="dark"] .community-feed,
+[data-theme="dark"] .learn-card,
+[data-theme="dark"] .video-card,
+[data-theme="dark"] .map-legend {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Keep gradient cards colorful in dark mode too */
+[data-theme="dark"] .stat-card.gradient-1 {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-2 {
+    background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-3 {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-4 {
+    background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+}
+
+/* Upload Area */
+[data-theme="dark"] .upload-area-enhanced {
+    background: var(--dark-surface-2) !important;
+    border-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .upload-area-enhanced:hover {
+    border-color: var(--dark-primary) !important;
+    background: rgba(46, 204, 113, 0.05) !important;
+}
+
+/* Inputs */
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background: var(--dark-surface-2) !important;
+    border: 1px solid var(--dark-border) !important;
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] input::placeholder {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] input:focus {
+    border-color: var(--dark-primary) !important;
+    outline: none !important;
+}
+
+/* Buttons */
+[data-theme="dark"] .method-btn {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .method-btn.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background: var(--dark-primary) !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: var(--dark-primary-hover) !important;
+}
+
+/* Tabs */
+[data-theme="dark"] .tab-btn-enhanced {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .tab-btn-enhanced.active {
+    color: var(--dark-primary) !important;
+}
+
+[data-theme="dark"] .tab-btn-enhanced.active::after {
+    background: var(--dark-primary) !important;
+}
+
+/* Chat Assistant */
+[data-theme="dark"] .assistant-chat {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chat-header {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+[data-theme="dark"] .message.bot {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .chat-input {
+    border-top-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chat-input input {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Dropdowns */
+[data-theme="dark"] .user-dropdown {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .user-dropdown a {
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .user-dropdown a:hover {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Notifications */
+[data-theme="dark"] .notification-panel {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .notification-item {
+    border-bottom-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .notification-item:hover {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Tags */
+[data-theme="dark"] .tag {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .tag:hover {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Filter buttons */
+[data-theme="dark"] .filter-btn {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .filter-btn.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .chart-period {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+    border-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chart-period.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* FAB */
+[data-theme="dark"] .fab-option {
+    background: var(--dark-surface) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .fab-option:hover {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Progress bars */
+[data-theme="dark"] .progress-bar {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Checkboxes */
+[data-theme="dark"] .option-checkbox {
+    color: var(--dark-text) !important;
+}
+
+/* Headers */
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+[data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .dashboard-header h1 {
+    color: white !important;
+}
+
+[data-theme="dark"] .greeting-message {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="dark"] .analyze-header h2 {
+    color: white !important;
+}
+
+[data-theme="dark"] .map-header h2 {
+    color: white !important;
+}
+
+[data-theme="dark"] .community-header h2 {
+    color: white !important;
+}
+
+/* Map */
+[data-theme="dark"] #diseaseMap {
+    background: var(--dark-surface) !important;
+}
+
+/* Text colors */
+[data-theme="dark"] p, [data-theme="dark"] span, [data-theme="dark"] li {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .stat-card p, 
+[data-theme="dark"] .stat-card span,
+[data-theme="dark"] .stat-card.gradient-1 p,
+[data-theme="dark"] .stat-card.gradient-2 p,
+[data-theme="dark"] .stat-card.gradient-3 p,
+[data-theme="dark"] .stat-card.gradient-4 p {
+    color: white !important;
+}
+
+/* View all link */
+[data-theme="dark"] .view-all {
+    color: var(--dark-primary) !important;
+}
+
+/* Read more link */
+[data-theme="dark"] .read-more {
+    color: var(--dark-primary) !important;
+}
+
+/* Smooth transitions */
+[data-theme="dark"] * {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                color 0.2s ease !important;
+}
+EOFcat > static/css/dark-mode.css << 'EOF'
+/* ========== CLEAN DARK MODE - NO BLACK MESS ========== */
+
+[data-theme="dark"] {
+    /* Clean dark color scheme */
+    --dark-bg: #0f1419;
+    --dark-surface: #1a232c;
+    --dark-surface-2: #212c38;
+    --dark-border: #2a3743;
+    --dark-text: #e8edf2;
+    --dark-text-secondary: #9baab8;
+    --dark-primary: #2ecc71;
+    --dark-primary-hover: #27ae60;
+}
+
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) fixed !important;
+    color: var(--dark-text) !important;
+}
+
+/* Navigation */
+[data-theme="dark"] .navbar {
+    background: rgba(26, 35, 44, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: var(--dark-primary) !important;
+    background: rgba(46, 204, 113, 0.1) !important;
+}
+
+[data-theme="dark"] .nav-link.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Cards */
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .chart-card,
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .recommendations-card,
+[data-theme="dark"] .weather-alert-card,
+[data-theme="dark"] .upload-advanced,
+[data-theme="dark"] .community-sidebar,
+[data-theme="dark"] .community-feed,
+[data-theme="dark"] .learn-card,
+[data-theme="dark"] .video-card,
+[data-theme="dark"] .map-legend {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Keep gradient cards colorful in dark mode too */
+[data-theme="dark"] .stat-card.gradient-1 {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-2 {
+    background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-3 {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-4 {
+    background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+}
+
+/* Upload Area */
+[data-theme="dark"] .upload-area-enhanced {
+    background: var(--dark-surface-2) !important;
+    border-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .upload-area-enhanced:hover {
+    border-color: var(--dark-primary) !important;
+    background: rgba(46, 204, 113, 0.05) !important;
+}
+
+/* Inputs */
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background: var(--dark-surface-2) !important;
+    border: 1px solid var(--dark-border) !important;
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] input::placeholder {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] input:focus {
+    border-color: var(--dark-primary) !important;
+    outline: none !important;
+}
+
+/* Buttons */
+[data-theme="dark"] .method-btn {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .method-btn.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background: var(--dark-primary) !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: var(--dark-primary-hover) !important;
+}
+
+/* Tabs */
+[data-theme="dark"] .tab-btn-enhanced {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .tab-btn-enhanced.active {
+    color: var(--dark-primary) !important;
+}
+
+[data-theme="dark"] .tab-btn-enhanced.active::after {
+    background: var(--dark-primary) !important;
+}
+
+/* Chat Assistant */
+[data-theme="dark"] .assistant-chat {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chat-header {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+[data-theme="dark"] .message.bot {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .chat-input {
+    border-top-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chat-input input {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Dropdowns */
+[data-theme="dark"] .user-dropdown {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .user-dropdown a {
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .user-dropdown a:hover {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Notifications */
+[data-theme="dark"] .notification-panel {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .notification-item {
+    border-bottom-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .notification-item:hover {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Tags */
+[data-theme="dark"] .tag {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .tag:hover {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Filter buttons */
+[data-theme="dark"] .filter-btn {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .filter-btn.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .chart-period {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+    border-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chart-period.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* FAB */
+[data-theme="dark"] .fab-option {
+    background: var(--dark-surface) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .fab-option:hover {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Progress bars */
+[data-theme="dark"] .progress-bar {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Checkboxes */
+[data-theme="dark"] .option-checkbox {
+    color: var(--dark-text) !important;
+}
+
+/* Headers */
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+[data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .dashboard-header h1 {
+    color: white !important;
+}
+
+[data-theme="dark"] .greeting-message {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="dark"] .analyze-header h2 {
+    color: white !important;
+}
+
+[data-theme="dark"] .map-header h2 {
+    color: white !important;
+}
+
+[data-theme="dark"] .community-header h2 {
+    color: white !important;
+}
+
+/* Map */
+[data-theme="dark"] #diseaseMap {
+    background: var(--dark-surface) !important;
+}
+
+/* Text colors */
+[data-theme="dark"] p, [data-theme="dark"] span, [data-theme="dark"] li {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .stat-card p, 
+[data-theme="dark"] .stat-card span,
+[data-theme="dark"] .stat-card.gradient-1 p,
+[data-theme="dark"] .stat-card.gradient-2 p,
+[data-theme="dark"] .stat-card.gradient-3 p,
+[data-theme="dark"] .stat-card.gradient-4 p {
+    color: white !important;
+}
+
+/* View all link */
+[data-theme="dark"] .view-all {
+    color: var(--dark-primary) !important;
+}
+
+/* Read more link */
+[data-theme="dark"] .read-more {
+    color: var(--dark-primary) !important;
+}
+
+/* Smooth transitions */
+[data-theme="dark"] * {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                color 0.2s ease !important;
+}
+EOFcat > static/css/dark-mode.css << 'EOF'
+/* ========== CLEAN DARK MODE - NO BLACK MESS ========== */
+
+[data-theme="dark"] {
+    /* Clean dark color scheme */
+    --dark-bg: #0f1419;
+    --dark-surface: #1a232c;
+    --dark-surface-2: #212c38;
+    --dark-border: #2a3743;
+    --dark-text: #e8edf2;
+    --dark-text-secondary: #9baab8;
+    --dark-primary: #2ecc71;
+    --dark-primary-hover: #27ae60;
+}
+
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) fixed !important;
+    color: var(--dark-text) !important;
+}
+
+/* Navigation */
+[data-theme="dark"] .navbar {
+    background: rgba(26, 35, 44, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: var(--dark-primary) !important;
+    background: rgba(46, 204, 113, 0.1) !important;
+}
+
+[data-theme="dark"] .nav-link.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Cards */
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .chart-card,
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .recommendations-card,
+[data-theme="dark"] .weather-alert-card,
+[data-theme="dark"] .upload-advanced,
+[data-theme="dark"] .community-sidebar,
+[data-theme="dark"] .community-feed,
+[data-theme="dark"] .learn-card,
+[data-theme="dark"] .video-card,
+[data-theme="dark"] .map-legend {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Keep gradient cards colorful in dark mode too */
+[data-theme="dark"] .stat-card.gradient-1 {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-2 {
+    background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-3 {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+}
+
+[data-theme="dark"] .stat-card.gradient-4 {
+    background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+}
+
+/* Upload Area */
+[data-theme="dark"] .upload-area-enhanced {
+    background: var(--dark-surface-2) !important;
+    border-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .upload-area-enhanced:hover {
+    border-color: var(--dark-primary) !important;
+    background: rgba(46, 204, 113, 0.05) !important;
+}
+
+/* Inputs */
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background: var(--dark-surface-2) !important;
+    border: 1px solid var(--dark-border) !important;
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] input::placeholder {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] input:focus {
+    border-color: var(--dark-primary) !important;
+    outline: none !important;
+}
+
+/* Buttons */
+[data-theme="dark"] .method-btn {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .method-btn.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background: var(--dark-primary) !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: var(--dark-primary-hover) !important;
+}
+
+/* Tabs */
+[data-theme="dark"] .tab-btn-enhanced {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .tab-btn-enhanced.active {
+    color: var(--dark-primary) !important;
+}
+
+[data-theme="dark"] .tab-btn-enhanced.active::after {
+    background: var(--dark-primary) !important;
+}
+
+/* Chat Assistant */
+[data-theme="dark"] .assistant-chat {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chat-header {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+[data-theme="dark"] .message.bot {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .chat-input {
+    border-top-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chat-input input {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Dropdowns */
+[data-theme="dark"] .user-dropdown {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .user-dropdown a {
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .user-dropdown a:hover {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Notifications */
+[data-theme="dark"] .notification-panel {
+    background: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .notification-item {
+    border-bottom-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .notification-item:hover {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Tags */
+[data-theme="dark"] .tag {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .tag:hover {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Filter buttons */
+[data-theme="dark"] .filter-btn {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .filter-btn.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .chart-period {
+    background: var(--dark-surface-2) !important;
+    color: var(--dark-text-secondary) !important;
+    border-color: var(--dark-border) !important;
+}
+
+[data-theme="dark"] .chart-period.active {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* FAB */
+[data-theme="dark"] .fab-option {
+    background: var(--dark-surface) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+[data-theme="dark"] .fab-option:hover {
+    background: var(--dark-primary) !important;
+    color: white !important;
+}
+
+/* Progress bars */
+[data-theme="dark"] .progress-bar {
+    background: var(--dark-surface-2) !important;
+}
+
+/* Checkboxes */
+[data-theme="dark"] .option-checkbox {
+    color: var(--dark-text) !important;
+}
+
+/* Headers */
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+[data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
+    color: var(--dark-text) !important;
+}
+
+[data-theme="dark"] .dashboard-header h1 {
+    color: white !important;
+}
+
+[data-theme="dark"] .greeting-message {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="dark"] .analyze-header h2 {
+    color: white !important;
+}
+
+[data-theme="dark"] .map-header h2 {
+    color: white !important;
+}
+
+[data-theme="dark"] .community-header h2 {
+    color: white !important;
+}
+
+/* Map */
+[data-theme="dark"] #diseaseMap {
+    background: var(--dark-surface) !important;
+}
+
+/* Text colors */
+[data-theme="dark"] p, [data-theme="dark"] span, [data-theme="dark"] li {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-theme="dark"] .stat-card p, 
+[data-theme="dark"] .stat-card span,
+[data-theme="dark"] .stat-card.gradient-1 p,
+[data-theme="dark"] .stat-card.gradient-2 p,
+[data-theme="dark"] .stat-card.gradient-3 p,
+[data-theme="dark"] .stat-card.gradient-4 p {
+    color: white !important;
+}
+
+/* View all link */
+[data-theme="dark"] .view-all {
+    color: var(--dark-primary) !important;
+}
+
+/* Read more link */
+[data-theme="dark"] .read-more {
+    color: var(--dark-primary) !important;
+}
+
+/* Smooth transitions */
+[data-theme="dark"] * {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                color 0.2s ease !important;
+}
