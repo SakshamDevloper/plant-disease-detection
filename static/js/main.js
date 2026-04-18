@@ -718,3 +718,97 @@ function loadHistory() {
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(loadHistory, 500);
 });
+
+// Populate History Section with sample data
+function loadHistory() {
+    const historyGrid = document.getElementById('historyGrid');
+    if (!historyGrid) return;
+    
+    const sampleHistory = [
+        { plant: 'Tomato', disease: 'Early Blight', date: '2026-04-19', confidence: 94, status: 'disease' },
+        { plant: 'Potato', disease: 'Healthy', date: '2026-04-18', confidence: 97, status: 'healthy' },
+        { plant: 'Apple', disease: 'Apple Scab', date: '2026-04-17', confidence: 88, status: 'disease' },
+        { plant: 'Corn', disease: 'Common Rust', date: '2026-04-16', confidence: 91, status: 'warning' },
+        { plant: 'Grape', disease: 'Healthy', date: '2026-04-15', confidence: 96, status: 'healthy' },
+    ];
+    
+    historyGrid.innerHTML = sampleHistory.map(item => `
+        <div class="history-item">
+            <div class="history-info">
+                <div class="history-icon ${item.status}">
+                    <i class="fas fa-${item.status === 'healthy' ? 'check-circle' : 'exclamation-circle'}"></i>
+                </div>
+                <div class="history-details">
+                    <h4>${item.plant} - ${item.disease}</h4>
+                    <p>${item.date}</p>
+                </div>
+            </div>
+            <div class="history-confidence">
+                <div class="confidence-value">${item.confidence}%</div>
+                <div class="confidence-label">Confidence</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(loadHistory, 500);
+});
+
+// Fix Dashboard Charts
+function initializeCharts() {
+    // Disease Distribution Chart
+    const diseaseCtx = document.getElementById('diseaseChart');
+    if (diseaseCtx) {
+        new Chart(diseaseCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Late Blight', 'Early Blight', 'Leaf Mold', 'Powdery Mildew', 'Healthy', 'Other'],
+                datasets: [{
+                    data: [28, 22, 15, 12, 18, 5],
+                    backgroundColor: ['#e74c3c', '#f39c12', '#3498db', '#9b59b6', '#2ecc71', '#95a5a6'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+    
+    // Accuracy Trend Chart
+    const accuracyCtx = document.getElementById('accuracyChart');
+    if (accuracyCtx) {
+        new Chart(accuracyCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Model Accuracy',
+                    data: [88, 90, 92, 91, 94, 95, 96, 95, 97, 96, 98, 97],
+                    borderColor: '#2ecc71',
+                    backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { min: 80, max: 100 }
+                }
+            }
+        });
+    }
+}
+
+// Call charts initialization
+if (document.getElementById('diseaseChart')) {
+    initializeCharts();
+}
